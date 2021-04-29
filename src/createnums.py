@@ -30,7 +30,8 @@ def score(future,history):
     return False
 
 def createNums(info,indexPool):
-    # 0. Call GenerateNum function
+    # 0-1. N 회분 score 합의 허용범위설정
+    # 0-2. Call GenerateNum function => (허용범위)
     # - get Num Dict < = {Nun : Score} (형식)
     # 2-1. <6> 자리별 스코어 합 확인( 각 자리 index 0 부터 )
     # 2-2. Score 합의 범위인지 확인
