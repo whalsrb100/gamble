@@ -31,7 +31,7 @@ def generateNum(gSeq, indexN,loopN,indexPool,history):
             # 1-1. get history ( 필요: indexPool or info )
             # 1-2. Check Score => ( 100회분량의 히스토리 리스트 )
             # 1-3. Score 미달 history 삭제
-            # 1-4. Num Dict 생성 ( 필요: indexPool or info )
+            # 1-4. Num Dict 생성 ( 필요: indexPool or info ) <= {Nun : Score} (형식)
             # 1-5. return Num Dict
             
             curHist.clear()
