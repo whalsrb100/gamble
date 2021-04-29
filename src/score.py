@@ -1,3 +1,3 @@
 # get score function.........
-def score():
-def scoreRange():
+def getScoreDict():
+def getScoreSum():

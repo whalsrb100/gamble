@@ -33,6 +33,14 @@ def createNums(info,indexPool):
     # 0-1. N 회분 score 합의 허용범위설정
     # 0-2. Call GenerateNum function => (허용범위)
     # - get Num Dict < = {Nun : Score} (형식)
+    
+    # 1-1. get history ( 필요: indexPool or info ), (score 허용범위는 필요없음)
+    # 1-2. Check Score => ( 100회분량의 히스토리 리스트 )
+    # 1-3. 각자리별 Score 범위 설정
+    # 1-4. Score 미달 history 삭제
+    # 1-5. Num Dict 생성 ( 필요: indexPool or info ) <= {Nun : Score} (형식)
+    # 1-6. return Num Dict
+    
     # 2-1. <6> 자리별 스코어 합 확인( 각 자리 index 0 부터 )
     # 2-2. Score 합의 범위인지 확인
     # OK : return Future
