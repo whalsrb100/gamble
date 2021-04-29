@@ -30,6 +30,12 @@ def score(future,history):
     return False
 
 def createNums(info,indexPool):
+    # 0. Call GenerateNum function
+    # - get Num Dict < = {Nun : Score} (형식)
+    # 2-1. <6> 자리별 스코어 합 확인( 각 자리 index 0 부터 )
+    # 2-2. Score 합의 범위인지 확인
+    # OK : return Future
+    # NOK :  goto 2-1
     history = getHistory(info)
     future = []
     scale=0.8

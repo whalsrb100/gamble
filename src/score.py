@@ -1,2 +1,3 @@
 # get score function.........
 def score():
+def scoreRange():

@@ -1,3 +1,7 @@
+def getHistory():
+    # All History Return
+    return historyList
+
 def getHistory(info):
     history = []
     for i in range(0,6): history.append({i:0 for i in range(1,46)})
