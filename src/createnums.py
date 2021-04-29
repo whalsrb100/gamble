@@ -35,7 +35,7 @@ def createNums(info,indexPool):
     # - get Num Dict < = {Nun : Score} (형식)
     
     # 1-1. get history ( 필요: indexPool or info ), (score 허용범위는 필요없음)
-    # 1-2. Check Score => ( 100회분량의 히스토리 리스트 )
+    # 1-2. Check Score => ( N 회분량의 히스토리 리스트 )
     # 1-3. 각자리별 Score 범위 설정
     # 1-4. Score 미달 history 삭제
     # 1-5. Num Dict 생성 ( 필요: indexPool or info ) <= {Nun : Score} (형식)
