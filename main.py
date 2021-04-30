@@ -26,7 +26,7 @@ e_Seq = getLastSequence() # 마지막 회차
 # excel 파일을 읽어 정보를 수집
 from src.getinfoexcel import getInfoExcel
 ###########################################################################
-Excel_FileName = './python/gamble/' + 'Lotto_List' + '.xlsx'
+Excel_FileName = './' + 'Lotto_List' + '.xlsx'
 info = getInfoExcel(Excel_FileName)
 
 #	N1		Num3	Num4	Num5	Num6	Bonus
@@ -44,7 +44,11 @@ for i in range(s_Seq - s_Seq, e_Seq - s_Seq):
 # create nums
 ###########################################################################
 from src.createnums import createNums
-future = createNums(info,indexPool)
+max_N = 100
+N = max_N
+future = []
+for i in range(N, len(info)):
+    future.append(createNums(info[i-N:i],indexPool[i]))
 
 #print(future)
 ###########################################################################
@@ -58,12 +62,18 @@ grade.append(0)
 grade.append(0)
 grade.append(0)
 grade.append(0)
-for i in range(1,len(info)):
+for i in range(N, len(info)):
     checkNum = 0
     for j in range(0,6):
+        ckDup = []
         for k in range(0,6):
-            if info[i][j] == future[i-1][k]: checkNum += 1
+            if info[i][j] == future[i-N][k]:
+                if future[i-N][k] not in ckDup:
+                    checkNum += 1
+                    ckDup.append(future[i-N][k])
+        ckDup.clear()
     if checkNum >= 3:
+        #if checkNum >= 3: print("{} {} {} {} {} {} ::::: {} {} {} {} {} {} ".format( info[i-1][0],info[i-1][1],info[i-1][2],info[i-1][3],info[i-1][4],info[i-1][5],future[i-N][0],future[i-N][1],future[i-N][2],future[i-N][3],future[i-N][4],future[i-N][5]  ) )
         #print("{}:{}개".format(i+1,checkNum))
         TotalCheckNum += 1
         if    checkNum == 6: grade[3] += 1

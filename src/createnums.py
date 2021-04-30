@@ -1,31 +1,29 @@
-###########################################################################
-# 각 자리, 숫자별 출현 빈도
-###########################################################################
-#from src.history import getHistory
-
-# PRINT
-#from src.history import printHistory
-#printHistory(history)
-###########################################################################
 from src.score import getValidHistoryDict
 def createNums(info,indexPool):
     # 0-1. N 회분 score 합의 허용범위설정
     validHistoryDict = getValidHistoryDict(info)
     scorePerPoint = []
-    
-    IsDebug = 0
-    if IsDebug:
-        for i in range(0,6):
-            #print ( validDict[i] )
-            M = validHistoryDict[i][list(validHistoryDict[i].keys())[0]]
-            scorePerPoint.append(len(info)/M)
-            print ( "nseq({})\tmax:{}".format( i+1, M) )
-            for j in range(0,len(validHistoryDict[i])):
-                if validHistoryDict[i][list(validHistoryDict[i].keys())[j]] * scorePerPoint[i] > 70:
-                    print ( "{}:{}".format( list(validHistoryDict[i].keys())[j], validHistoryDict[i][list(validHistoryDict[i].keys())[j]])  )
-    
-    
-    exit()
+    future = []
+    #print(len(info))
+    for i in range(0,6):
+        sumScores = 0
+        #print ( validDict[i] )
+        M = validHistoryDict[i][list(validHistoryDict[i].keys())[0]]
+        scorePerPoint.append(int(len(info)/M))
+        #print ( "nseq({})\tmax:{}".format( i+1, M) )
+        for j in range(0,len(validHistoryDict[i])):
+            scorepoint = int(validHistoryDict[i][list(validHistoryDict[i].keys())[j]] * scorePerPoint[i])
+            if scorepoint <= 100 and scorepoint >= 60:
+                print(scorepoint)
+                #print ( "{}:{}".format( list(validHistoryDict[i].keys())[j], validHistoryDict[i][list(validHistoryDict[i].keys())[j]])  )
+                #future.append(list(validHistoryDict[i].keys())[indexPool%len(validHistoryDict[i].keys())])
+                if i == 1:
+                    sumScores = int(validHistoryDict[i][list(validHistoryDict[i].keys())[j]] * scorePerPoint[i])
+                    #print(  "SPP:{}\t{}".format(scorePerPoint[i], sumScores)  )
+                    #print(list(validHistoryDict[i].keys())[j])
+                future.append(list(validHistoryDict[i].keys())[j])
+                break
+    #if len(future) == 6: print("{}".format(future) )
     return future
     # 0-2. Call GenerateNum function => (허용범위)
     # - get Num Dict < = {Nun : Score} (형식)
