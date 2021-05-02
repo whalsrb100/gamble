@@ -29,26 +29,29 @@ from src.getinfoexcel import getInfoExcel
 Excel_FileName = './' + 'Lotto_List' + '.xlsx'
 info = getInfoExcel(Excel_FileName)
 
-#	N1		Num3	Num4	Num5	Num6	Bonus
-#	10	23	29	33	37	40	16
+#    N1        Num3    Num4    Num5    Num6    Bonus
+#    10    23    29    33    37    40    16
 #e_Seq = 2
 indexPool = []
 for i in range(s_Seq - s_Seq, e_Seq - s_Seq):
     if i > 0:
         preinfo = info[i-1]
     indexPool.append((40 * 41 * 42 * 43 * 44 * info[i][0]) + (40 * 41 * 42 * 43  * info[i][1]) + (40 * 41 * 42 * info[i][2]) + (40 * 41 * info[i][3]) + (40 * info[i][4]) + (info[i][5]))
-    #print("{}:\t{}\t{}\t{}\t{}\t{}\t{}\tb:{}\t{}".format(str(i+1),info[i][0],info[i][1],info[i][2],info[i][3],info[i][4],info[i][5],info[i][6],indexPool[i]))
+    print("{}:\t{}\t{}\t{}\t{}\t{}\t{}\tb:{}\t{}".format(str(i+1),info[i][0],info[i][1],info[i][2],info[i][3],info[i][4],info[i][5],info[i][6],indexPool[i]))
 ###########################################################################
 
 ###########################################################################
 # create nums
 ###########################################################################
 from src.createnums import createNums
-max_N = 100
+if len(info) > 100:
+    max_N = 100
+else:
+    max_N = len(info) - 1
 N = max_N
 future = []
 for i in range(N, len(info)):
-    future.append(createNums(info[i-N:i],indexPool[i]))
+    future.append(createNums(info[i-N:i],indexPool[i-1]))
 
 #print(future)
 ###########################################################################
@@ -58,10 +61,7 @@ for i in range(N, len(info)):
 ###########################################################################
 TotalCheckNum = 0
 grade = []
-grade.append(0)
-grade.append(0)
-grade.append(0)
-grade.append(0)
+for i in range(0,4): grade.append(0)
 for i in range(N, len(info)):
     checkNum = 0
     for j in range(0,6):
@@ -73,14 +73,14 @@ for i in range(N, len(info)):
                     ckDup.append(future[i-N][k])
         ckDup.clear()
     if checkNum >= 3:
-        #if checkNum >= 3: print("{} {} {} {} {} {} ::::: {} {} {} {} {} {} ".format( info[i-1][0],info[i-1][1],info[i-1][2],info[i-1][3],info[i-1][4],info[i-1][5],future[i-N][0],future[i-N][1],future[i-N][2],future[i-N][3],future[i-N][4],future[i-N][5]  ) )
+        if checkNum >= 3: print("n{}\t{} {} {} {} {} {} ::::: {} {} {} {} {} {} ".format( checkNum, info[i][0],info[i][1],info[i][2],info[i][3],info[i][4],info[i][5],future[i-N][0],future[i-N][1],future[i-N][2],future[i-N][3],future[i-N][4],future[i-N][5]  ) )
         #print("{}:{}개".format(i+1,checkNum))
         TotalCheckNum += 1
         if    checkNum == 6: grade[3] += 1
         elif checkNum == 5: grade[2] += 1
         elif checkNum == 4: grade[1] += 1
         elif checkNum == 3: grade[0] += 1
-print("{}%\t({}/{}) 5:{}, 4:{}, 3:{}, 1:{}".format(TotalCheckNum/(len(info)-1)*100.0, TotalCheckNum,len(info)-1,grade[0],grade[1],grade[2],grade[3]))
+print("{}%\t({}/{}) 5:{}, 4:{}, 3:{}, 1:{}".format(TotalCheckNum/(len(info))*100.0, TotalCheckNum,len(info)-1,grade[0],grade[1],grade[2],grade[3]))
 ###########################################################################
 
 ###########################################################################
