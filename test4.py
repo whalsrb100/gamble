@@ -6,8 +6,6 @@ class Myproj:
     #def __new__(self):
     #    print('new')
     #    return super().__new__(self)
-
-
     def __init__(self):
         self.ExcelFileName = './{}.xlsx'.format('Lotto_List')
         self.e_Seq = self.getLastSequence()
@@ -22,6 +20,14 @@ class Myproj:
         for i in range(len(self.tmp)):
             self.futureList.append(list(set(self.tmp[i])))
             self.futureList[i].sort()
+#######################################################
+        for i in range ( 960,963 +1):
+            print("######################## seq: {} ########################".format(i))
+            self.r2 = self.createIdxLst(i)
+            print(self.r2)
+#######################################################
+        super().__init__()
+        exit()
 
         #self.checkDiff(self.futureList)
 
@@ -270,6 +276,50 @@ class Myproj:
             validHistoryList.append(validHistoryDict[keysList[i]])
             validHistoryList.append(0)
         return validHistoryList
+
+
+    def getValidHistoryList2(self, n, info):
+        validHistoryList = []
+        for i in range(n,n+1):
+            validHistoryDict = {}
+            for j in range(0, len(info)):
+                try: validHistoryDict[info[j][i]] += 1
+                except KeyError: validHistoryDict[info[j][i]] = 1
+
+        #keysList = list(validHistoryDict)
+        #keysList = list(dict(  sorted(validHistoryDict.items(), key=(lambda x: x[0]) ,reverse=False)))
+        if    n == 0: keysList = list(dict(  sorted(validHistoryDict.items(), key=(lambda x: x[0]) ,reverse=True)))
+        elif n == 1: keysList = list(dict(  sorted(validHistoryDict.items(), key=(lambda x: x[0]) ,reverse=True)))
+        elif n == 2: keysList = list(dict(  sorted(validHistoryDict.items(), key=(lambda x: x[0]) ,reverse=True)))
+        elif n == 3: keysList = list(dict(  sorted(validHistoryDict.items(), key=(lambda x: x[0]) ,reverse=False)))
+        elif n == 4: keysList = list(dict(  sorted(validHistoryDict.items(), key=(lambda x: x[0]) ,reverse=False)))
+        elif n == 5: keysList = list(dict(  sorted(validHistoryDict.items(), key=(lambda x: x[0]) ,reverse=False)))
+        return keysList
+
+    def createIdxLst(self,num):
+        history=[]
+        ret = []
+        if num - self.StartSeq < 1: StartNum = num
+        else: StartNum = self.StartSeq
+        for i in range(num, num+1):
+            #for j in range(0,6):
+            for j in range(0,1):
+                history.append(self.getValidHistoryList2(j,self.info[i-(StartNum):i-1]))
+            for j in range(0,1):
+                cnt=0
+                print("##########################")
+                print("info: {}".format(self.info[i]))
+                print("history: {}".format(history[j]))
+                print("##########################")
+                for k in reversed(range(  int(len(history[j]))  )):
+                    cnt += 1
+                    if self.info[i][j] == history[j]:
+                        ret.append(cnt)
+                        break
+                
+        return ret
+
+
     def createNums(self,ckRange):
         nums = []    # return nums
         history=[]
